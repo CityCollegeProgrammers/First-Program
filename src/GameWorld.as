@@ -17,6 +17,7 @@ package
 		override public function begin():void 
 		{
 			add(new Player());
+			add(new Enemy ());
 			super.begin();
 		}
 		

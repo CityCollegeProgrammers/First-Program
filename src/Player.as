@@ -15,12 +15,20 @@ package
 	
 	public class Player extends Entity 
 	{
-		var image:Image = new Image (new BitmapData(32, 32, true, 0xffffffff));
+		//Adding the image file
+		[Embed(source="../assets/playerIMG.png")]private const PLAYER_GRAPHIC:Class;
+		var image:Image;
+		
 		var _v:Point = new Point;
 		
 		public function Player() 
 		{
+			//Adding the image to the image variable.
+			image = new Image(PLAYER_GRAPHIC);
 			graphic = image;
+			
+			setHitbox(32, 32, 0, 0);
+			type = "player"; 
 			
 			
 		}
@@ -31,13 +39,19 @@ package
 			var movement:Point = new Point;
 			if (Input.check(Key.UP)) movement.y--;
 			if (Input.check(Key.DOWN)) movement.y++;
-			if (Input.check(Key.RIGHT)) movement.x++;
-			if (Input.check(Key.LEFT)) movement.x--;
+			if (Input.check(Key.RIGHT))movement.x++; 
+			if (Input.check(Key.LEFT)) movement.x--; 
 			
 			_v.x = 200* FP.elapsed * movement.x;
 			_v.y = 200 * FP.elapsed * movement.y;
 			
-			
+			//To Check Collision
+			if (collide("enemy", x, y))
+			{
+				trace("Collide on enemy");
+				//image.color =0xff0000;
+
+			}
 			super.update();
 		}
 		private function movementUpdate ():void
