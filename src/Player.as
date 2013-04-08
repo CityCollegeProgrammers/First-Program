@@ -36,6 +36,7 @@ package
 		override public function update():void 
 		{
 			movementUpdate();
+			updateCollision();
 			var movement:Point = new Point;
 			if (Input.check(Key.UP)) movement.y--;
 			if (Input.check(Key.DOWN)) movement.y++;
@@ -58,6 +59,47 @@ package
 		{
 			x += _v.x;
 			y += _v.y;
+		}
+		
+		private function updateCollision ():void
+		{
+			//Collide Function, if it collide against enemy at the location x,y of the player)
+			x += _v.x;
+			if (collide("level", x, y))
+			{
+				if (FP.sign(_v.x) > 0)
+				{
+					_v.x = 0;
+					x = Math.floor(x / 32) * 32 +32 - width;
+
+				}
+				else
+				{
+					//Moving to the left
+					_v.x = 0
+					x = Math.floor(x / 32) * 32 +32;
+				}
+			}
+			
+			
+			if (collide("level", x, y))
+			{
+				if (FP.sign(_v.y) > 0)
+				{
+					//Moving Down
+					_v.y = 0;
+					y = Math.floor((y/ height) /32)* 32 +32 - height;
+
+				}
+				else
+				{
+					//Moving to the UP
+					_v.y = 0
+					y = Math.floor(y / 32) * 32 + 32;
+				}
+			}
+
+
 		}
 	}
 
