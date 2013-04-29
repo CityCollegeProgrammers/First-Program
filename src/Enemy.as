@@ -33,6 +33,17 @@ package
 			setHitbox(32, 32,0, 0);
 
 		}
+		
+		override public function update():void 
+		{
+			
+			
+			if (collide("bullet", x, y))
+			{
+				this.world.remove(this);
+			}
+			super.update();
+		}
 			
 		
 	}

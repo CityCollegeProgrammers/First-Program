@@ -36,7 +36,11 @@ package
 		override public function update():void 
 		{
 			movementUpdate();
+			
 			updateCollision();
+			
+			launchBullet();
+			
 			var movement:Point = new Point;
 			if (Input.check(Key.UP)) movement.y--;
 			if (Input.check(Key.DOWN)) movement.y++;
@@ -100,6 +104,14 @@ package
 			}
 
 
+		}
+		
+		public function launchBullet():void
+		{
+			if (Input.mouseDown)
+			{
+				this.world.add(new Bullet ( x + width, y + height / 2));
+			}
 		}
 	}
 
